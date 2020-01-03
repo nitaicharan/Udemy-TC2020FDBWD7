@@ -1,3 +1,4 @@
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'questions.dart';
 
@@ -31,16 +32,26 @@ class _QuizPageState extends State<QuizPage> {
 
   void picked(bool answer) {
     setState(() {
-      if (questions.isRight(answer))
-        score.add(Icon(
-          Icons.check,
-          color: Colors.green,
-        ));
-      else
-        score.add(Icon(
-          Icons.close,
-          color: Colors.red,
-        ));
+      if (questions.isFinished()) {
+        Alert(
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+        ).show();
+        questions.reset();
+        score = [];
+      } else {
+        if (questions.isRight(answer))
+          score.add(Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+        else
+          score.add(Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+      }
     });
     questions.next();
   }

@@ -32,4 +32,10 @@ class Questions {
       _index++;
     }
   }
+
+  bool isFinished() {
+    return _index + 1 == _questions.length;
+  }
+
+  void reset()=> _index = 0;
 }
